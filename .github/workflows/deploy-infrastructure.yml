@@ -40,16 +40,16 @@ jobs:
           },
           "STEAMPASS": {
             "value": "$STEAMPASS"
-          }
+          },
           "STEAMGUARD": {
             "value": "$STEAMGUARD"
-          }
+          },
           "CS2_PW": {
             "value": "$CS2_PW"
-          }
+          },
           "CS2_RCONPW": {
             "value": "$CS2_RCONPW"
-          }
+          },
           "CS2_SERVERNAME": {
             "value": "$CS2_SERVERNAME"
           }
