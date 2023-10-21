@@ -8,13 +8,11 @@ on:
 permissions:
   id-token: write
   contents: read
-env:
-  env_name: ${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
 jobs:
   deploy-bicep:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ vars.env_name }}
+      name: ${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -35,8 +33,9 @@ jobs:
       env:
         STEAMUSER: ${{ secrets.STEAMUSER }}
         STEAMPASS: ${{ secrets.STEAMPASS }}
+        ENV_NAME: ${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
       run: |
-        rgName="cs-server-$env_name"
+        rgName="cs-server-$ENV_NAME"
         az deployment group create \
           --resource-group "$rgName" \
           --template-file "infrastructure/azure/main.json" \
