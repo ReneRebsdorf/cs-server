@@ -33,5 +33,5 @@ jobs:
         rgName="cs-server-$ENV_NAME"
         az deployment group create \
           --resource-group "$rgName" \
-          --template-file "./cs-server/infrastructure/azure/main.json" \
+          --template-file "infrastructure/azure/main.bicep" \
           --parameters '{"STEAMUSER": {"value": "$STEAMUSER"}, "STEAMPASS": {"value": "$STEAMPASS"}}'
