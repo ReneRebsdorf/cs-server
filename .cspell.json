@@ -1,0 +1,23 @@
+﻿{
+  "ignorePaths": [
+    // Avoids infinite loop due to disallowed words in this files words array
+    ".cspell.json"
+  ],
+  "language": "en",
+  "noConfigSearch": true,
+  "words": [
+    "!FIXME",
+    "!TODO",
+    "GAMEMODE",
+    "GAMETYPE",
+    "joedwards",
+    "MAPGROUP",
+    "MAXPLAYERS",
+    "RCONPW",
+    "SERVERNAME",
+    "STARTMAP",
+    "STEAMGUARD",
+    "STEAMPASS",
+    "STEAMUSER"
+  ]
+}
