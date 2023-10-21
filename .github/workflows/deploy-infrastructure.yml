@@ -39,6 +39,4 @@ jobs:
         az deployment group create \
           --resource-group "$rgName" \
           --template-file "infrastructure/azure/main.json" \
-          --STEAMUSER "$STEAMUSER" \
-          --STEAMPASS "$STEAMPASS" \
-          --location "$location"
+          --parameters '{"steamUser": {"value": "$STEAMUSER"}, "steamPass": {"value": "$STEAMPASS"}}'
