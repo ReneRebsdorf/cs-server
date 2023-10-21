@@ -28,6 +28,10 @@ jobs:
       env:
         STEAMUSER: ${{ secrets.STEAMUSER }}
         STEAMPASS: ${{ secrets.STEAMPASS }}
+        STEAMGUARD: ${{ secrets.STEAMGUARD }}
+        CS2_PW: ${{ secrets.CS2_PW }}
+        CS2_RCONPW: ${{ secrets.CS2_RCONPW }}
+        CS2_SERVERNAME: ${{ vars.CS2_SERVERNAME }}
       run: |
         cat << EOL > infrastructure/azure/azureDeploy.parameters.json
         {
@@ -36,6 +40,18 @@ jobs:
           },
           "STEAMPASS": {
             "value": "$STEAMPASS"
+          }
+          "STEAMGUARD": {
+            "value": "$STEAMGUARD"
+          }
+          "CS2_PW": {
+            "value": "$CS2_PW"
+          }
+          "CS2_RCONPW": {
+            "value": "$CS2_RCONPW"
+          }
+          "CS2_SERVERNAME": {
+            "value": "$CS2_SERVERNAME"
           }
         }
         EOL
