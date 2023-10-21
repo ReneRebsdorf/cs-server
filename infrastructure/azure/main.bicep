@@ -17,33 +17,44 @@ param containerAppName string = 'cs2server'
 param baseTime string = utcNow()
 
 // Container Environment params
+@description('Steam username as seen on the community page, e.g. https://steamcommunity.com/id/xyz/')
 @secure()
 param STEAMUSER string
 @secure()
+@description('Steam password to login to the steam account - used to download cs server files')
 param STEAMPASS string
 @description('Steam Guard key - use the most recent')
 @secure()
 param STEAMGUARD string
 @secure()
+@description('Remote Connection password for the server - used to gain privileged access to the server')
 param CS2_RCONPW string
 @secure()
+@description('Password for the server - needed by players to join the server, leave empty for no password')
 param CS2_PW string
-// Visible name of the server
+@description('Visible name of the server')
 param CS2_SERVERNAME string
-// CS2 server listen port tcp_udp
-param CS2_PORT string = '701'
+@description('CS2 server listen port tcp_udp')
+param CS2_PORT string = '27015'
+@description('Set to 1 to make the server LAN only')
 param CS2_LAN string = '0'
+
 param CS2_MAXPLAYERS string = '16'
-// Game type, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers
+@description('Game type, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers')
 param CS2_GAMETYPE string = '0'
-// Game mode, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers
+@description('Game mode, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers')
 param CS2_GAMEMODE string = '0'
+@description('Map group/pool')
 param CS2_MAPGROUP string = 'mg_active'
+@description('Map to start the server with')
 param CS2_STARTMAP string = 'de_inferno'
+@description('Additional args to pass to the server')
 param CS2_ADDITIONAL_ARGS string = ''
-// 0 - easy, 1 - normal, 2 - hard, 3 - expert
+@description('Bot Difficulty: 0 - easy, 1 - normal, 2 - hard, 3 - expert')
 param CS2_BOT_DIFFICULTY string = '3'
+@description('How many bots to spawn on the server')
 param CS2_BOT_QUOTA string = '9'
+@description('How to fill the server with bots: fill - fill the server until there are no more slots, match - fill the server until the number of bots matches the number of players')
 param CS2_BOT_QUOTA_MODE string = 'fill'
 
 var fileShareName = 'cs2data'
