@@ -160,7 +160,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
           image: 'hub.docker.com/joedwards32/cs2:latest'
           resources: {
             cpu: 2
-            memory: '2Gi'
+            memory: '4Gi'
           }
           env: [
             {
