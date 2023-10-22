@@ -19,21 +19,21 @@ param baseTime string = utcNow()
 // Container Environment params
 @description('Steam username as seen on the community page, e.g. https://steamcommunity.com/id/xyz/')
 @secure()
-param STEAMUSER string
+param STEAMUSER string = newGuid()
 @secure()
 @description('Steam password to login to the steam account - used to download cs server files')
-param STEAMPASS string
+param STEAMPASS string = newGuid()
 @description('Steam Guard key - use the most recent')
 @secure()
-param STEAMGUARD string
+param STEAMGUARD string = newGuid()
 @secure()
 @description('Remote Connection password for the server - used to gain privileged access to the server')
-param CS2_RCONPW string
+param CS2_RCONPW string = newGuid()
 @secure()
 @description('Password for the server - needed by players to join the server, leave empty for no password')
-param CS2_PW string
+param CS2_PW string = newGuid()
 @description('Visible name of the server')
-param CS2_SERVERNAME string
+param CS2_SERVERNAME string = 'My CS2 Server'
 @description('CS2 server listen port tcp_udp')
 param CS2_PORT string = '27015'
 @description('Set to 1 to make the server LAN only')
@@ -157,7 +157,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
       containers: [
         {
           name: containerAppName
-          image: 'hub.docker.com/joedwards32/cs2:latest'
+          image: 'joedwards32/cs2:latest'
           resources: {
             cpu: 2
             memory: '4Gi'
