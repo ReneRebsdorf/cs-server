@@ -60,9 +60,9 @@ jobs:
         ENV_NAME: ${{ github.ref == 'refs/heads/main' && 'prod' || 'dev' }}
       run: |
         rgName="cs-server-$ENV_NAME"
-        deploymentName="date +%s"
+        deploymentName="$(date +%s)"
         az deployment group create \
           -g "$rgName" \
           --template-file "infrastructure/azure/main.bicep" \
           --parameters "infrastructure/azure/azureDeploy.parameters.json" \
-          -n "date +%s"
+          -n "$deploymentName"
