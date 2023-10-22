@@ -131,23 +131,23 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
       }
       secrets: [
         {
-          name: 'STEAMUSER-secret'
+          name: 'steam-user-ref'
           value: STEAMUSER
         }
         {
-          name: 'STEAMPASS-secret'
+          name: 'steam-pass-ref'
           value: STEAMPASS
         }
         {
-          name: 'STEAMGUARD-secret'
+          name: 'steam-guard-ref'
           value: STEAMGUARD
         }
         {
-          name: 'CS2_RCONPW-secret'
+          name: 'remote-conn-ref'
           value: CS2_RCONPW
         }
         {
-          name: 'CS2_PW-secret'
+          name: 'server-pass-ref'
           value: CS2_PW
         }
       ]
@@ -165,23 +165,23 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
           env: [
             {
               name: 'STEAMUSER'
-              secretRef: 'STEAMUSER-secret'
+              secretRef: 'steam-user-ref'
             }
             {
               name: 'STEAMPASS'
-              secretRef: 'STEAMPASS-secret'
+              secretRef: 'steam-pass-ref'
             }
             {
               name: 'STEAMGUARD'
-              secretRef: 'STEAMGUARD-secret'
+              secretRef: 'steam-guard-ref'
             }
             {
               name: 'CS2_RCONPW'
-              secretRef: 'CS2_RCONPW-secret'
+              secretRef: 'remote-conn-ref'
             }
             {
               name: 'CS2_PW'
-              secretRef: 'CS2_PW-secret'
+              secretRef: 'server-pass-ref'
             }
             {
               name: 'CS2_SERVERNAME'
