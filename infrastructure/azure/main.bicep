@@ -17,7 +17,7 @@ param containerAppName string = 'cs2server'
 param baseTime string = utcNow()
 
 // Container Environment params
-@description('Steam username as seen on the community page, e.g. https://steamcommunity.com/id/xyz/')
+@description('Steam account name. *Not* necessarily the same as seen on the community page')
 @secure()
 param STEAMUSER string = newGuid()
 @secure()
