@@ -63,5 +63,5 @@ jobs:
         az deployment group create \
           --resource-group "$rgName" \
           --template-file "infrastructure/azure/main.bicep" \
-          --parameters "infrastructure/azure/azureDeploy.parameters.json"
+          --parameters "infrastructure/azure/azureDeploy.parameters.json" \
           --name "date +%s"
