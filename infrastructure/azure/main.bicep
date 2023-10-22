@@ -17,33 +17,44 @@ param containerAppName string = 'cs2server'
 param baseTime string = utcNow()
 
 // Container Environment params
+@description('Steam account name. *Not* necessarily the same as seen on the community page')
 @secure()
-param STEAMUSER string
+param STEAMUSER string = newGuid()
 @secure()
-param STEAMPASS string
+@description('Steam password to login to the steam account - used to download cs server files')
+param STEAMPASS string = newGuid()
 @description('Steam Guard key - use the most recent')
 @secure()
-param STEAMGUARD string
+param STEAMGUARD string = newGuid()
 @secure()
-param CS2_RCONPW string
+@description('Remote Connection password for the server - used to gain privileged access to the server')
+param CS2_RCONPW string = newGuid()
 @secure()
-param CS2_PW string
-// Visible name of the server
-param CS2_SERVERNAME string
-// CS2 server listen port tcp_udp
-param CS2_PORT string = '701'
+@description('Password for the server - needed by players to join the server, leave empty for no password')
+param CS2_PW string = newGuid()
+@description('Visible name of the server')
+param CS2_SERVERNAME string = 'My CS2 Server'
+@description('CS2 server listen port tcp_udp')
+param CS2_PORT string = '27015'
+@description('Set to 1 to make the server LAN only')
 param CS2_LAN string = '0'
+
 param CS2_MAXPLAYERS string = '16'
-// Game type, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers
+@description('Game type, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers')
 param CS2_GAMETYPE string = '0'
-// Game mode, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers
+@description('Game mode, see https://developer.valvesoftware.com/wiki/Counter-Strike_2/Dedicated_Servers')
 param CS2_GAMEMODE string = '0'
+@description('Map group/pool')
 param CS2_MAPGROUP string = 'mg_active'
+@description('Map to start the server with')
 param CS2_STARTMAP string = 'de_inferno'
+@description('Additional args to pass to the server')
 param CS2_ADDITIONAL_ARGS string = ''
-// 0 - easy, 1 - normal, 2 - hard, 3 - expert
+@description('Bot Difficulty: 0 - easy, 1 - normal, 2 - hard, 3 - expert')
 param CS2_BOT_DIFFICULTY string = '3'
+@description('How many bots to spawn on the server')
 param CS2_BOT_QUOTA string = '9'
+@description('How to fill the server with bots: fill - fill the server until there are no more slots, match - fill the server until the number of bots matches the number of players')
 param CS2_BOT_QUOTA_MODE string = 'fill'
 
 var fileShareName = 'cs2data'
@@ -96,7 +107,7 @@ resource containerAppEnv 'Microsoft.App/managedEnvironments@2022-10-01' = {
     }
   }
   resource storages 'storages' = {
-    name: 'MyAzureFiles'
+    name: 'my-azure-files'
     properties: {
       azureFile: {
         accountName: storageAccount.name
@@ -120,23 +131,23 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
       }
       secrets: [
         {
-          name: 'STEAMUSER-secret'
+          name: 'steam-user-ref'
           value: STEAMUSER
         }
         {
-          name: 'STEAMPASS-secret'
+          name: 'steam-pass-ref'
           value: STEAMPASS
         }
         {
-          name: 'STEAMGUARD-secret'
+          name: 'steam-guard-ref'
           value: STEAMGUARD
         }
         {
-          name: 'CS2_RCONPW-secret'
+          name: 'remote-conn-ref'
           value: CS2_RCONPW
         }
         {
-          name: 'CS2_PW-secret'
+          name: 'server-pass-ref'
           value: CS2_PW
         }
       ]
@@ -146,31 +157,31 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
       containers: [
         {
           name: containerAppName
-          image: 'hub.docker.com/joedwards32/cs2:latest'
+          image: 'joedwards32/cs2:latest'
           resources: {
             cpu: 2
-            memory: '2Gi'
+            memory: '4Gi'
           }
           env: [
             {
               name: 'STEAMUSER'
-              secretRef: 'STEAMUSER-secret'
+              secretRef: 'steam-user-ref'
             }
             {
               name: 'STEAMPASS'
-              secretRef: 'STEAMPASS-secret'
+              secretRef: 'steam-pass-ref'
             }
             {
               name: 'STEAMGUARD'
-              secretRef: 'STEAMGUARD-secret'
+              secretRef: 'steam-guard-ref'
             }
             {
               name: 'CS2_RCONPW'
-              secretRef: 'CS2_RCONPW-secret'
+              secretRef: 'remote-conn-ref'
             }
             {
               name: 'CS2_PW'
-              secretRef: 'CS2_PW-secret'
+              secretRef: 'server-pass-ref'
             }
             {
               name: 'CS2_SERVERNAME'
@@ -237,7 +248,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
         {
           name: fileShareName
           storageType: 'AzureFile'
-          storageName: 'MyAzureFiles'
+          storageName: 'my-azure-files'
         }
       ]
     }
