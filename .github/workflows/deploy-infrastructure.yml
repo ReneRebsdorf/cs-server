@@ -64,3 +64,4 @@ jobs:
           --resource-group "$rgName" \
           --template-file "infrastructure/azure/main.bicep" \
           --parameters "infrastructure/azure/azureDeploy.parameters.json"
+          --name "date +%s"
