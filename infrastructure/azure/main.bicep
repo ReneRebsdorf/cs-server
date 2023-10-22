@@ -107,7 +107,7 @@ resource containerAppEnv 'Microsoft.App/managedEnvironments@2022-10-01' = {
     }
   }
   resource storages 'storages' = {
-    name: 'MyAzureFiles'
+    name: 'my-azure-files'
     properties: {
       azureFile: {
         accountName: storageAccount.name
@@ -248,7 +248,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-10-01' = {
         {
           name: fileShareName
           storageType: 'AzureFile'
-          storageName: 'MyAzureFiles'
+          storageName: 'my-azure-files'
         }
       ]
     }
